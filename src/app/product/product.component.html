@@ -1,0 +1,33 @@
+<app-category></app-category>    
+
+<div class="form-group">
+  <input 
+    class="form-control" 
+    id="ProductName" 
+    placeholder="Ürün Ara" 
+    [(ngModel)] = "filterText">
+  <small *ngIf="filterText"  class="form-text text-muted"
+    >Şunun İçin <strong>{{filterText}}</strong> Arama Yaptınız</small
+  >
+</div>
+<ng-template #noProduct>
+  <div class="alert alert-secondary" role="alert">
+    Bu Kategoride Urun Yoktur
+  </div>
+</ng-template>
+<div class="row pt-2">
+  <div
+    class="card"
+    style="width: 18rem; margin-left:2rem; margin-top: 0.5rem; padding: 20px; border: none;"
+    *ngFor="let product of products | productFilter: filterText"
+  >
+    <img [src]="product.ImageUrl" class="card-img-top" alt="..." />
+    <div class="card-body">
+      <h5 class="card-title">
+        {{ product.name }} {{ product.price | currency: "USD":true:"1.2-2" }}
+      </h5>
+      <p class="card-text">{{ product.description }}</p>
+      <a (click)="addToCart(product)"  class="btn btn-primary">Sepete Ekle</a>
+    </div>
+  </div>
+</div>
